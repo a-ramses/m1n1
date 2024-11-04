@@ -6,7 +6,7 @@
 static void init_common_everest(void)
 {
     reg_set(SYS_IMP_APL_HID12, BIT(46));
-    reg_set(SYS_IMP_APL_HID3, BIT(63));
+    reg_set(SYS_IMP_APL_HID3, HID3_DEV_PCIE_THROTTLE_ENABLE);
     reg_mask(SYS_IMP_APL_HID3, GENMASK(ULONG(62), ULONG(56)), BIT(60) | BIT(59) | BIT(58));
     reg_clr(SYS_IMP_APL_HID3, BIT(4));
     reg_set(SYS_IMP_APL_HID9, BIT(17));
@@ -42,15 +42,5 @@ void init_t6031_everest(int rev)
     msr(s3_1_c15_c1_5, 0x3uL);
     msr(s3_4_c15_c14_6, 0x3uL);
     init_common_everest();
-    reg_set(SYS_IMP_APL_HID4, HID4_ENABLE_LFSR_STALL_LOAD_PIPE2_ISSUE);
-}
-
-void init_t6030_everest(int rev)
-{
-    UNUSED(rev);
-    msr(s3_1_c15_c1_5, 0x3uL);
-    //msr(s3_4_c15_c14_6, 0x3uL);
-    init_common_everest();
-    reg_set(SYS_IMP_APL_HID16, BIT(54));
     reg_set(SYS_IMP_APL_HID4, HID4_ENABLE_LFSR_STALL_LOAD_PIPE2_ISSUE);
 }
